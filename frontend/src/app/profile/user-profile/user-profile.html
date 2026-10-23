@@ -1,0 +1,47 @@
+
+<div class="profile-page">
+
+  <div class="page-heading">
+    <div>
+      <h1>User Profile</h1>
+      <p>View your account information</p>
+    </div>
+  </div>
+
+  <div class="profile-card">
+
+    <section class="profile-summary">
+      <div class="avatar">
+        {{ profile.fullName.charAt(0).toUpperCase() || 'U' }}
+      </div>
+
+      <h2>{{ profile.fullName }}</h2>
+      <p class="profile-email">{{ profile.email }}</p>
+    </section>
+
+    <section class="profile-details">
+
+      <div class="section-heading">
+        <h3>Account Information</h3>
+        <p>Your registered account details</p>
+      </div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" [value]="profile.fullName" readonly />
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" [value]="profile.email" readonly />
+      </div>
+
+      <div class="form-group">
+        <label>Role</label>
+        <input type="text" [value]="profile.role" readonly />
+      </div>
+
+    </section>
+
+  </div>
+</div>

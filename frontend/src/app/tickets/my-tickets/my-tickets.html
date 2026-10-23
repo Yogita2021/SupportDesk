@@ -1,0 +1,164 @@
+
+<div class="tickets-page">
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div>
+      <h1>My Tickets</h1>
+      <p>Track and manage your support requests.</p>
+    </div>
+
+    <a routerLink="/tickets/create" class="create-btn">
+      <span>＋</span>
+      Create Ticket
+    </a>
+  </header>
+
+  <!-- Statistics Cards -->
+  <section class="stats-grid">
+
+    <article class="stat-card">
+      <div class="stat-icon total-icon">▣</div>
+      <div>
+        <p>Total Tickets</p>
+        <h2>{{ tickets.length }}</h2>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon open-icon">◷</div>
+      <div>
+        <p>Open Tickets</p>
+        <h2 class="blue">{{ openCount }}</h2>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon progress-icon">◴</div>
+      <div>
+        <p>In Progress</p>
+        <h2 class="orange">{{ inProgressCount }}</h2>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon resolved-icon">✓</div>
+      <div>
+        <p>Resolved</p>
+        <h2 class="green">{{ resolvedCount }}</h2>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- Tickets Section -->
+  <section class="table-card">
+
+    <div class="table-header">
+      <div>
+        <h2>All Tickets</h2>
+        <p class="table-subtitle">View all your support requests</p>
+      </div>
+
+      <!-- <a routerLink="/tickets/create" class="create-btn">
+        ＋ Create Ticket
+      </a> -->
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="feedback">
+      <span class="loader"></span>
+      <p>Loading tickets...</p>
+    </div>
+
+    <!-- Error State -->
+    <div
+      *ngIf="!loading && errorMessage"
+      class="feedback error-message"
+    >
+      <span class="feedback-icon">!</span>
+      <h3>Unable to load tickets</h3>
+      <p>{{ errorMessage }}</p>
+      <button type="button" class="retry-btn" (click)="loadTickets()">
+        Try Again
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div
+      *ngIf="!loading && !errorMessage && tickets.length === 0"
+      class="feedback empty-state"
+    >
+      <div class="empty-icon">▤</div>
+      <h3>No tickets found</h3>
+      <p>Create your first support ticket to get started.</p>
+
+      <a routerLink="/tickets/create" class="create-btn">
+        ＋ Create Your First Ticket
+      </a>
+    </div>
+
+    <!-- Tickets Table -->
+    <div class="table-wrapper" *ngIf="tickets.length > 0">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Ticket Details</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Created On</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let ticket of tickets">
+
+            <td class="ticket-title">
+              <strong>{{ ticket.title }}</strong>
+              <small>{{ ticket.description }}</small>
+            </td>
+
+            <td>
+              <span class="category-label">
+                {{ ticket.category }}
+              </span>
+            </td>
+
+            <td>
+              <span
+                class="badge"
+                [ngClass]="'priority-' + ticket.priority.toLowerCase()"
+              >
+                <span class="badge-dot"></span>
+                {{ ticket.priority }}
+              </span>
+            </td>
+
+            <td>
+              <span
+                class="badge"
+                [ngClass]="
+                  'status-' +
+                  ticket.status.toLowerCase().replace(' ', '-')
+                "
+              >
+                <span class="badge-dot"></span>
+                {{ ticket.status }}
+              </span>
+            </td>
+
+            <td class="date-cell">
+              {{ ticket.createdAt | date:'dd MMM yyyy' }}
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </section>
+
+</div>

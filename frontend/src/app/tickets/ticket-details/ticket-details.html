@@ -1,0 +1,59 @@
+
+<div class="details-page">
+  <a routerLink="/tickets" class="back-link">
+    ← Back to My Tickets
+  </a>
+
+  <div class="page-header">
+    <!-- <div>
+      <p class="ticket-number">TICKET DETAILS</p>
+      <h1>{{ ticket?.title || 'Ticket Details' }}</h1>
+      <p class="muted">Ticket ID: {{ ticket?._id }}</p>
+    </div> -->
+
+    <span class="status-badge">
+      {{ ticket?.status || 'Loading...' }}
+    </span>
+  </div>
+
+  <div *ngIf="loading" class="info-message">
+    Loading ticket details...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <ng-container *ngIf="!loading && ticket">
+    <section class="details-card">
+      <h2>Ticket Information</h2>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <label>Category</label>
+          <p>{{ ticket.category }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Priority</label>
+          <p>{{ ticket.priority }}</p>
+        </div>
+
+        <div class="detail-item full-width">
+          <label>Description</label>
+          <p>{{ ticket.description }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Created On</label>
+          <p>{{ ticket.createdAt | date:'medium' }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Last Updated</label>
+          <p>{{ ticket.updatedAt | date:'medium' }}</p>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+</div>

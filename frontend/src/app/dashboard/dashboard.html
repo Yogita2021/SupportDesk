@@ -1,0 +1,187 @@
+
+<div class="dashboard">
+  <header class="page-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Welcome back! Here's an overview of your support tickets.</p>
+    </div>
+
+    <!-- <a routerLink="/tickets/create" class="primary-btn">
+      <span>＋</span> Create New Ticket
+    </a> -->
+  </header>
+
+  <div *ngIf="loading" class="message">
+    Loading your dashboard...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button type="button" (click)="loadDashboard()">Retry</button>
+  </div>
+
+  <ng-container *ngIf="!loading && !errorMessage">
+    <section class="stats-grid">
+      <article class="stat-card">
+        <div class="stat-icon blue">▣</div>
+        <p>Total Tickets</p>
+        <h2>{{ summary.totalTickets }}</h2>
+        <span>All your support requests</span>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon orange">◷</div>
+        <p>Open Tickets</p>
+        <h2>{{ summary.openTickets }}</h2>
+        <span>Waiting for attention</span>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon purple">◌</div>
+        <p>In Progress</p>
+        <h2>{{ summary.inProgressTickets }}</h2>
+        <span>Being worked on</span>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon green">✓</div>
+        <p>Resolved</p>
+        <h2>{{ summary.resolvedTickets }}</h2>
+        <span>Successfully solved</span>
+      </article>
+    </section>
+
+    <section class="overview-grid">
+      <article class="panel status-panel">
+        <h3>Ticket Status Overview</h3>
+
+        <div class="status-content">
+          <div
+            class="donut"
+            [style.background]="
+              'conic-gradient(' +
+              '#3478f6 0% ' + openPercent + '%, ' +
+              '#8b5cf6 ' + openPercent + '% ' +
+              (openPercent + progressPercent) + '%, ' +
+              '#20b486 ' + (openPercent + progressPercent) + '% 100%)'
+            ">
+            <div class="donut-center">
+              <strong>{{ summary.totalTickets }}</strong>
+              <span>Total Tickets</span>
+            </div>
+          </div>
+
+          <div class="legend">
+            <div>
+              <span class="dot blue-dot"></span>
+              <span>Open</span>
+              <strong>{{ summary.openTickets }}</strong>
+            </div>
+            <div>
+              <span class="dot purple-dot"></span>
+              <span>In Progress</span>
+              <strong>{{ summary.inProgressTickets }}</strong>
+            </div>
+            <div>
+              <span class="dot green-dot"></span>
+              <span>Resolved</span>
+              <strong>{{ summary.resolvedTickets }}</strong>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel activity-panel">
+        <h3>Recent Activity</h3>
+
+        <div *ngIf="recentActivity.length === 0" class="empty-state">
+          No recent activity yet.
+        </div>
+
+        <div class="activity-item" *ngFor="let item of recentActivity">
+          <div class="activity-icon">✓</div>
+          <div class="activity-text">
+            <strong>{{ item.title }}</strong>
+            <span>
+              Ticket status:
+              {{ item.status }}
+            </span>
+            <small>{{ item.createdAt | date:'medium' }}</small>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel tickets-panel">
+      <div class="section-heading">
+        <div>
+          <h3>My Tickets</h3>
+          <p>Track the status of your support requests.</p>
+        </div>
+
+        <a routerLink="/tickets/create" class="primary-btn">
+          ＋ Create Ticket
+        </a>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Ticket ID</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Created On</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let ticket of recentTickets">
+              <td class="ticket-id">
+                {{ ticket._id | slice:0:8 }}
+              </td>
+              <td>{{ ticket.title }}</td>
+              <td>{{ ticket.category }}</td>
+              <td>
+                <span
+                  class="priority"
+                  [ngClass]="getStatusClass(ticket.priority)">
+                  {{ ticket.priority }}
+                </span>
+              </td>
+              <td>
+                <span
+                  class="status"
+                  [ngClass]="getStatusClass(ticket.status)">
+                  {{ ticket.status }}
+                </span>
+              </td>
+              <td>{{ ticket.createdAt | date:'mediumDate' }}</td>
+              <td>
+                <a
+                  class="view-btn"
+                  [routerLink]="['/gettickets', ticket._id]">
+                  View
+                </a>
+              </td>
+            </tr>
+
+            <tr *ngIf="recentTickets.length === 0">
+              <td colspan="7" class="empty-state">
+                No tickets found.
+                <a routerLink="/tickets/create">Create your first ticket</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        Showing {{ recentTickets.length }} recent tickets
+      </div>
+    </section>
+  </ng-container>
+</div>

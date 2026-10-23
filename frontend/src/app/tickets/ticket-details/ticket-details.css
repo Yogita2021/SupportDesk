@@ -1,0 +1,160 @@
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.details-page {
+  min-height: 100%;
+  padding: 28px;
+  background: #f5f8ff;
+  color: #172b4d;
+  box-sizing: border-box;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #2878f0;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #165fce;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 10px;
+  font-size: 30px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.ticket-number {
+  margin: 0 0 8px;
+  color: #2878f0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.muted {
+  margin: 0;
+  color: #7183a4;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #e3efff;
+  color: #2168d5;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.details-card {
+  margin-bottom: 22px;
+  padding: 26px;
+  background: #fff;
+  border: 1px solid #e5edfb;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgb(30 64 120 / 4%);
+}
+
+.details-card h2 {
+  margin: 0 0 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #edf1f8;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 32px;
+}
+
+.detail-item {
+  min-width: 0;
+}
+
+.detail-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.detail-item label {
+  display: block;
+  margin-bottom: 9px;
+  color: #7183a4;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.detail-item p {
+  margin: 0;
+  color: #172b4d;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.info-message,
+.error-message {
+  padding: 20px;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+}
+
+.info-message {
+  color: #7183a4;
+}
+
+.error-message {
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #b42318;
+}
+
+@media (max-width: 600px) {
+  .details-page {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .details-card {
+    padding: 18px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .detail-item.full-width {
+    grid-column: auto;
+  }
+}
